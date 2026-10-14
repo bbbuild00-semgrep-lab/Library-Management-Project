@@ -1,22 +1,19 @@
-# Ignore every top-level path first.
-/*
+# Exclude top-level paths that were not included in the CE baseline.
+/.gitignore
+/.semgrepignore
+/README.md
+/db.sqlite3
+/requirements.txt
+/static/
+/staticfiles/
 
-# Include the same recursive directories used in the CE experiment.
-!/adherants/
-!/ouvrages/
-!/templates/
-
-# Include only the selected gestionbib files.
-!/gestionbib/
+# In gestionbib, scan only the four baseline files.
 /gestionbib/*
 !/gestionbib/settings.py
 !/gestionbib/urls.py
 !/gestionbib/wsgi.py
 !/gestionbib/asgi.py
 
-# Include the Django entry point.
-!/manage.py
-
-# Exclude generated Python cache files.
+# Exclude generated cache files.
 **/__pycache__/
 *.pyc
