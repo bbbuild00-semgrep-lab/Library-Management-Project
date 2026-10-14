@@ -1,0 +1,22 @@
+# Ignore every top-level path first.
+/*
+
+# Include the same recursive directories used in the CE experiment.
+!/adherants/
+!/ouvrages/
+!/templates/
+
+# Include only the selected gestionbib files.
+!/gestionbib/
+/gestionbib/*
+!/gestionbib/settings.py
+!/gestionbib/urls.py
+!/gestionbib/wsgi.py
+!/gestionbib/asgi.py
+
+# Include the Django entry point.
+!/manage.py
+
+# Exclude generated Python cache files.
+**/__pycache__/
+*.pyc
