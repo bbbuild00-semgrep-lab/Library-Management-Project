@@ -4,6 +4,7 @@ from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth import authenticate
 from django.conf import settings
+from django.utils.http import url_has_allowed_host_and_scheme
 from django.core.mail import send_mail
 from django.views.decorators.csrf import csrf_protect
 from django.shortcuts import render, get_object_or_404
@@ -123,8 +124,11 @@ def login(request):
         #     login(request, user)
         #     return redirect(request.GET['next'] if 'next' in request.GET else 'profile')
         if user is not None:
-            auth_login(request, user)  # Rename login function call to auth_login
-            return redirect(request.GET.get('next', 'profile'))
+            auth_login(request, user)
+            next_url = request.GET.get('next', 'profile')
+            if not url_has_allowed_host_and_scheme(next_url, allowed_hosts={request.get_host()}):
+                next_url = 'profile'
+            return redirect(next_url)
         else:
             messages.error(request, 'Username OR password is incorrect')
     return render(request, 'adherants/login_register.html', {'page' : page})
